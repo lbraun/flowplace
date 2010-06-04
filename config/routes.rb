@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  #map.devise_for :user
+  
   map.resources :configurations, :collection => { :merge_defaults => :get }
   map.resources :wallets
   map.resources :plays
@@ -52,7 +54,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.logged_out('/logged_out', :controller => 'home', :action => 'logged_out')
 
-  map.from_plugin(:bolt)
+#  map.from_plugin(:bolt)
   map.logged_in_users '/users/logged_in', :controller => 'users', :action => 'logged_in_users'
   map.signup_users '/users/signup', :controller => 'users', :action => 'signup', :conditions => { :method => :get }
   map.signup_users '/users/signup', :controller => 'users', :action => 'do_signup', :conditions => { :method => :post }

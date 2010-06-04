@@ -5,11 +5,11 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.2.2' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
-require File.join(File.dirname(__FILE__), '../vendor/plugins/engines/boot')
+# require File.join(File.dirname(__FILE__), '../vendor/plugins/engines/boot')
 SystemTZOffset = Time.now.utc_offset
 SessionExpirationSeconds = 60*60  #expiration is 1 hour (60*60 = 60 sec x 60 min)
 
@@ -42,6 +42,8 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
   config.gem 'gravtastic'
   config.gem 'nokogiri'
+  config.gem 'warden', :version => '0.10.7'
+  config.gem 'devise', :version => '1.0.7'
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -103,9 +105,9 @@ ActionMailer::Base.smtp_settings = SMTP_SETTINGS
 # since we use its updated_at property for session expiration, we have to make sure
 # to force it changed incase all other attributes in the session are the same and
 # rails is trying to optimize away the save.
-class CGI::Session::ActiveRecordStore::Session
- def before_save
-  self.updated_at = Time.now
- end
-end
+#class CGI::Session::ActiveRecordStore::Session
+# def before_save
+#  self.updated_at = Time.now
+# end
+#end
 

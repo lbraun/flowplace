@@ -6,9 +6,10 @@ class SessionsController < ApplicationController
   ################################################################################
   # Log the user in, redirecting to the correct page.
   def create
-    backend = Bolt::Config.backend_class
+    #TODO authenticate at login
+    #backend = Bolt::Config.backend_class
 
-    if identity = backend.authenticate(params[:login], params[:password])
+    if true #identity = backend.authenticate(params[:login], params[:password])
       login(identity.user_model_object) and return
     else
 #      Event.create(:user_id=>self.id,:event_type=>'login',:sub_type =>"failed",:content => "#{request.remote_ip}; login: #{params[:login]}")
@@ -20,9 +21,11 @@ class SessionsController < ApplicationController
 
   private
   ################################################################################
-  include(Bolt::BoltControllerMethods)
+  #TODO
+  #include(Bolt::BoltControllerMethods)
   
   ################################################################################
   # Rails 2.0 CSRF Security
-  csrf_attack_prevention
+  #TODO
+  #csrf_attack_prevention
 end

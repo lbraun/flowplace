@@ -33,6 +33,15 @@ SearchFormParams = {
   :search_pair_info => [{:name => "main", :on => :select, :for => :text_field, :first_focus => true}]
 }
 
+class ActionController::Base
+  def self.require_authentication
+    #TODO
+  end
+  def self.require_authorization(obj1, obj2)
+    #TODO
+  end
+end
+
 class ApplicationController < ActionController::Base
   require_authentication
   helper :all # include all helpers, all the time
@@ -72,6 +81,11 @@ class ApplicationController < ActionController::Base
 
   private
   
+  #TODO define current_user
+  def current_user
+    User.find(:first)
+  end
+  
   def set_current_circle
     @my_circles = current_user.circle_memberships
     if params[:current_circle]
@@ -88,6 +102,6 @@ class ApplicationController < ActionController::Base
   end
 
   ################################################################################
-  include(Bolt::BoltControllerMethods)
+#  include(Bolt::BoltControllerMethods)
   
 end

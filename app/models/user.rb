@@ -2,6 +2,8 @@ require 'lib/constants'
 class User < ActiveRecord::Base
   is_gravtastic
 
+  #devise :database_authenticatable, :confirmable, :recoverable, :rememberable, :trackable, :validatable
+
   has_many :stewarded_currencies, :class_name => 'Currency', :foreign_key => :steward_id
   has_many :currency_accounts, :dependent => :destroy
   has_many :weals_as_offerer, :class_name => 'Weal', :foreign_key => :offerer_id
@@ -22,6 +24,12 @@ class User < ActiveRecord::Base
   attr_protected :account_id,:last_login,:last_login_ip,:created_at
   cattr_reader :per_page
   @@per_page = 10
+  
+  ##############################################
+  # TODO replace bolt's can? method
+  def can?(obj)
+    true
+  end
   
   ##############################################
   # rename the user
@@ -102,28 +110,36 @@ class User < ActiveRecord::Base
   end
   
   def deactivated?
-    !bolt_identity.enabled? && bolt_identity.activation_code.blank?
+    #TODO
+    #!bolt_identity.enabled? && bolt_identity.activation_code.blank?
+    false
   end
 
   def activated?
-    bolt_identity.enabled? && bolt_identity.activation_code.blank?
+    #TODO
+    #bolt_identity.enabled? && bolt_identity.activation_code.blank?
+    true
   end
   
   def activation_pending?
-    !bolt_identity.enabled? && !bolt_identity.activation_code.blank?
+    #TODO
+    #!bolt_identity.enabled? && !bolt_identity.activation_code.blank?
+    false
   end
 
   def activate!
-    identity = self.bolt_identity
-    identity.require_activation! {|code| yield code}
-    identity.save
+    #TODO
+    #identity = self.bolt_identity
+    #identity.require_activation! {|code| yield code}
+    #identity.save
   end
 
   def deactivate!
-    identity = self.bolt_identity
-    identity.enabled = false
-    identity.activation_code = nil
-    identity.save
+    #TODO
+    #identity = self.bolt_identity
+    #identity.enabled = false
+    #identity.activation_code = nil
+    #identity.save
   end
   
   def acknowledge_tip
@@ -150,7 +166,9 @@ class User < ActiveRecord::Base
   
   ##############################################
   def privs
-    roles.collect {|r| r.name.intern}
+    #TODO
+    #roles.collect {|r| r.name.intern}
+    return []
   end
 
   ##############################################

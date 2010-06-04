@@ -1,9 +1,14 @@
 class HomeController < ApplicationController
   before_filter :set_current_circle,:only => :home
   helper :activities
-  require_authentication :except => [:logged_out,:home]
-  require_authorization :admin,:only => :version
+  #TODO authenticate and authorize
+  #require_authentication :except => [:logged_out,:home]
+  #require_authorization :admin,:only => :version
   def home
+    #TODO define logged_in
+    def logged_in?
+      false
+    end
     if logged_in?
       @user = User.find(params[:user_id]) if params[:user_id]
       if @user
